@@ -5,10 +5,19 @@ const app = express();
 const cors = require("cors");
 // This is your test secret API key.
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const path = require("path");
 
-app.use(express.static("public"));
+app.use(express.static("dist"));
 app.use(express.json());
 app.use(cors());
+
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "/dist/index.html"), function (err) {
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
+});
 
 // const calculateOrderAmount = (amount) => {
 //   // Replace this constant with a calculation of the order's amount
