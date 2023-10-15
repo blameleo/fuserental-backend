@@ -7,16 +7,21 @@ const cors = require("cors");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const path = require("path");
 
-app.use(express.static("Build"));
+const _dirname = path.dirname("");
+const buildPath = path.join(_dirname, "./fuseRentals/build");
+app.use(express.static(buildPath));
 app.use(express.json());
 app.use(cors());
 
 app.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname, "/Build/index.html"), function (err) {
-    if (err) {
-      res.status(500).send(err);
+  res.sendFile(
+    path.join(__dirname, "/fuseRentals/build/index.html"),
+    function (err) {
+      if (err) {
+        res.status(500).send(err);
+      }
     }
-  });
+  );
 });
 
 // const calculateOrderAmount = (amount) => {
