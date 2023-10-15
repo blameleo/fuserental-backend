@@ -7,12 +7,12 @@ const cors = require("cors");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const path = require("path");
 
-app.use(express.static("dist"));
+app.use(express.static("Build"));
 app.use(express.json());
 app.use(cors());
 
 app.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname, "/dist/index.html"), function (err) {
+  res.sendFile(path.join(__dirname, "/Build/index.html"), function (err) {
     if (err) {
       res.status(500).send(err);
     }
